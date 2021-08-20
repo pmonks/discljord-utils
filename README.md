@@ -13,7 +13,7 @@ Express a git dependency in your `deps.edn`:
 
 ```edn
 {:deps {pmonks/discljord-utils {:git/url "https://github.com/pmonks/discljord-utils.git"
-                                :git/sha "latest_sha_in_repo"}}}
+                                :git/sha "f83c167f3f4eb7d50d298b874bedd2060bee9537"}}}
 ```
 
 Require either or both of the included namespaces in your namespace(s):
