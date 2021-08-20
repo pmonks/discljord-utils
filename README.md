@@ -1,4 +1,4 @@
-(https://github.com/pmonks/discljord-utils/tree/main) [![Build](https://github.com/pmonks/discljord-utils/workflows/build/badge.svg?branch=main)](https://github.com/pmonks/discljord-utils/actions?query=workflow%3Abuild) [![Lint](https://github.com/pmonks/discljord-utils/workflows/lint/badge.svg?branch=main)](https://github.com/pmonks/discljord-utils/actions?query=workflow%3Alint) [![Dependencies](https://github.com/pmonks/discljord-utils/workflows/dependencies/badge.svg?branch=main)](https://github.com/pmonks/discljord-utils/actions?query=workflow%3Adependencies)
+[![Build](https://github.com/pmonks/discljord-utils/workflows/build/badge.svg?branch=main)](https://github.com/pmonks/discljord-utils/actions?query=workflow%3Abuild) [![Lint](https://github.com/pmonks/discljord-utils/workflows/lint/badge.svg?branch=main)](https://github.com/pmonks/discljord-utils/actions?query=workflow%3Alint) [![Dependencies](https://github.com/pmonks/discljord-utils/workflows/dependencies/badge.svg?branch=main)](https://github.com/pmonks/discljord-utils/actions?query=workflow%3Adependencies)
 
 [![Open Issues](https://img.shields.io/github/issues/pmonks/discljord-utils.svg)](https://github.com/pmonks/discljord-utils/issues)
 [![License](https://img.shields.io/github/license/pmonks/discljord-utils.svg)](https://github.com/pmonks/discljord-utils/blob/main/LICENSE)
@@ -33,7 +33,7 @@ Require either or both of the included namespaces at the REPL:
 
 ## API Documentation
 
-Coming soon.  For now, best to [browse the source](https://github.com/pmonks/discljord-utils) and/or make liberal use of the `doc` fn at the REPL.
+Coming soon.  For now, best to [browse the source](https://github.com/pmonks/discljord-utils/tree/main/src/discljord_utils) and/or make liberal use of the `doc` fn at the REPL.
 
 ## Contributor Information
 
