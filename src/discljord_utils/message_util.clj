@@ -19,7 +19,8 @@
 (ns discljord-utils.message-util
   (:require [clojure.tools.logging :as log]
             [discljord.messaging   :as dm]
-            [discljord.formatting  :as df]))
+            [discljord.formatting  :as df]
+            [discljord-utils.util  :as u]))
 
 (defn- check-response-and-throw
   [response]
@@ -131,3 +132,26 @@
 (defmethod timestamp-tag java.time.ZonedDateTime
   ([^java.time.ZonedDateTime i]        (timestamp-tag i nil))
   ([^java.time.ZonedDateTime i format] (timestamp-tag (.toEpochSecond i) format)))
+
+(defn md-escape
+  "Escapes the given string for Discord's dialect of markdown, optionally specifying whether the string will appear within a code fence or not (in which case the rules are different)."
+  ([s] (md-escape s false))
+  ([s code-fence?]
+    (let [replacements (concat [["\\"] ["\\\\"]   ; Replacements rom https://daringfireball.net/projects/markdown/syntax#backslash, with Discord additions (strike and spoiler)
+                                ["`"]  ["\\`"]]
+                               (when-not code-fence? [["*"] ["\\*"]
+                                                      ["_"] ["\\_"]
+                                                      ["{"] ["\\{"]
+                                                      ["}"] ["\\}"]
+                                                      ["["] ["\\["]
+                                                      ["]"] ["\\]"]
+                                                      ["("] ["\\("]
+                                                      [")"] ["\\)"]
+                                                      ["#"] ["\\#"]
+                                                      ["+"] ["\\+"]
+                                                      ["-"] ["\\-"]
+                                                      ["."] ["\\."]
+                                                      ["!"] ["\\!"]
+                                                      ["~"] ["\\~"]
+                                                      ["|"] ["\\|"]]))]
+      (u/replace-all s replacements))))
