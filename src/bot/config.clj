@@ -97,10 +97,10 @@
 (defstate build-info
           :start (when-let [build-info-resource (io/resource "build-info.edn")]
                    (when-let [raw-build-info (edn/read-string (slurp build-info-resource))]
-                     (let [repo (s/replace (s/trim (:repo raw-build-info)) ".git" "")
-                           sha  (s/trim (:sha raw-build-info))
-                           tag  (s/trim (:tag raw-build-info))
-                           date (s/trim (:date raw-build-info))]
+                     (let [repo (s/replace (s/trim (get raw-build-info :repo "")) ".git" "")
+                           sha  (s/trim (get raw-build-info :sha  ""))
+                           tag  (s/trim (get raw-build-info :tag  ""))
+                           date (s/trim (get raw-build-info :date ""))]
                        (merge (when-not (s/blank? repo) {:repo repo})
                               (when-not (s/blank? sha)  {:sha  sha})
                               (when-not (s/blank? tag)  {:tag  tag})
