@@ -27,17 +27,13 @@
 
 (def prefix "!")
 
-(def ^:private embed-template-colour   9215480)
-(def ^:private embed-template-logo-url "https://cdn.jsdelivr.net/gh/IGJoshua/discljord/img/icon.png")
-
-(defn- embed-template
+(defn embed-template
   "Generates a default template for embeds."
  []
- {:color     embed-template-colour
-  :footer    {:text "discljord bot"
-              :icon_url embed-template-logo-url}
+ {:color     (get-in cfg/config [:bot :colour])
+  :footer    {:text     (get-in cfg/config [:bot :name])
+              :icon_url (get-in cfg/config [:bot :logo])}
   :timestamp (str (tm/instant))})
-
 
 (defn privacy-command!
   "Provides a link to the bot's privacy policy"

@@ -77,10 +77,16 @@
                            :bot {
                              :ns                       bot-ns-name
                              :ns-sym                   (symbol bot-ns-name)
+                             :intents                  bot-intents
                              :name                     (if-let [bot-name (get-in raw-config [:bot :name])]
                                                          bot-name
                                                          (first (s/split bot-ns-name #"\.+")))
-                             :intents                  bot-intents
+                             :logo                     (if-let [bot-logo (get-in raw-config [:bot :logo])]
+                                                         bot-logo
+                                                         "https://cdn.jsdelivr.net/gh/IGJoshua/discljord/img/icon.png")
+                             :colour                   (if-let [bot-colour (get-in raw-config [:bot :colour])]
+                                                         bot-colour
+                                                         9215480)
                            }
                          }))
           :stop (async/close!        (:discord-event-channel      config))
