@@ -116,8 +116,8 @@
   (when ns-sym
     (require ns-sym)
     (into {} (for [[_ v] (ns-publics (find-ns ns-sym))]
-               (when (:bot-command (meta v))
-                 [(:bot-command meta v) v])))))
+               (when-let [bot-command (:bot-command (meta v))]
+                 [bot-command v])))))
 
 ; Table of "public" commands; those that can be used in any channel, group or DM
 (declare  public-command-dispatch-table)
