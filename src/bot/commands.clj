@@ -38,10 +38,12 @@
 (defn privacy-command!
   "Provides a link to the bot's privacy policy"
   [_ event-data]
-  (mu/create-message! (:discord-message-channel cfg/config)
-                      (:channel-id event-data)
-                      :embed (assoc (embed-template)
-                                    :description "[ctac-bot's privacy policy is available here](https://github.com/pmonks/ctac-bot/blob/main/PRIVACY.md).")))
+  (when-let [build-url (:build-url cfg/build-info)]
+    (mu/create-message! (:discord-message-channel cfg/config)
+                        (:channel-id event-data)
+                        :embed (assoc (embed-template)
+                                      :description (str "[" (get-in cfg/config [:bot :name]) "'s privacy policy is available here]"
+                                                        "(" (s/replace build-url "/tree/" "/blob/") "PRIVACY.md).")))))
 
 (defn status-command!
   "Provides technical status of the bot"
@@ -50,7 +52,6 @@
     (mu/create-message! (:discord-message-channel cfg/config)
                         (:channel-id event-data)
                         :embed (assoc (embed-template)
-                                      :title "Status"
                                       :fields [
                                         {:name "Running for"            :value (str (u/human-readable-date-diff cfg/boot-time now))}
                                         {:name "Built at"               :value (str (tm/format :iso-instant (:build-date cfg/build-info))
