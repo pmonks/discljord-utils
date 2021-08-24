@@ -43,7 +43,7 @@
                         (:channel-id event-data)
                         :embed (assoc (embed-template)
                                       :description (str "[" (get-in cfg/config [:bot :name]) "'s privacy policy is available here]"
-                                                        "(" (s/replace build-url "/tree/" "/blob/") "PRIVACY.md).")))))
+                                                        "(" (s/replace build-url "/tree/" "/blob/") "/PRIVACY.md).")))))
 
 (defn status-command!
   "Provides technical status of the bot"
