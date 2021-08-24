@@ -100,12 +100,12 @@
                      (let [repo (s/replace (s/trim (get raw-build-info :repo "")) ".git" "")
                            sha  (s/trim (get raw-build-info :sha  ""))
                            tag  (s/trim (get raw-build-info :tag  ""))
-                           date (s/trim (get raw-build-info :date ""))]
+                           date (:date raw-build-info)]
                        (merge (when-not (s/blank? repo) {:repo repo})
                               (when-not (s/blank? sha)  {:sha  sha})
                               (when-not (s/blank? tag)  {:tag  tag})
                               (when (and (not (s/blank? repo)) (or (not (s/blank? tag)) (not (s/blank? sha)))) {:build-url (str repo "/tree/" (if (s/blank? tag) sha tag))})
-                              (when-not (s/blank? date) {:build-date (tm/instant date)}))))))
+                              (when date {:build-date (tm/instant date)}))))))
 
 (defn set-log-level!
   "Sets the log level (which can be a string or a keyword) of the bot, for the given logger aka 'package' (a String, use 'ROOT' for the root logger)."
