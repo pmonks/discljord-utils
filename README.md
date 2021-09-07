@@ -1,7 +1,4 @@
-[![Build](https://github.com/pmonks/discljord-utils/workflows/build/badge.svg?branch=main)](https://github.com/pmonks/discljord-utils/actions?query=workflow%3Abuild) [![Lint](https://github.com/pmonks/discljord-utils/workflows/lint/badge.svg?branch=main)](https://github.com/pmonks/discljord-utils/actions?query=workflow%3Alint) [![Dependencies](https://github.com/pmonks/discljord-utils/workflows/dependencies/badge.svg?branch=main)](https://github.com/pmonks/discljord-utils/actions?query=workflow%3Adependencies)
-
-[![Open Issues](https://img.shields.io/github/issues/pmonks/discljord-utils.svg)](https://github.com/pmonks/discljord-utils/issues)
-[![License](https://img.shields.io/github/license/pmonks/discljord-utils.svg)](https://github.com/pmonks/discljord-utils/blob/main/LICENSE)
+[![Build](https://github.com/pmonks/discljord-utils/workflows/build/badge.svg?branch=main)](https://github.com/pmonks/discljord-utils/actions?query=workflow%3Abuild) [![Lint](https://github.com/pmonks/discljord-utils/workflows/lint/badge.svg?branch=main)](https://github.com/pmonks/discljord-utils/actions?query=workflow%3Alint) [![Dependencies](https://github.com/pmonks/discljord-utils/workflows/dependencies/badge.svg?branch=main)](https://github.com/pmonks/discljord-utils/actions?query=workflow%3Adependencies) [![Open Issues](https://img.shields.io/github/issues/pmonks/discljord-utils.svg)](https://github.com/pmonks/discljord-utils/issues) [![License](https://img.shields.io/github/license/pmonks/discljord-utils.svg)](https://github.com/pmonks/discljord-utils/blob/main/LICENSE)
 
 # discljord-utils
 
