@@ -36,7 +36,8 @@
                #(.isFile (io/file %)) "Must be a file"]]
    ["-h" "--help"]])
 
-(defn usage
+(defn- usage
+  "Returns usage instructions for running the bot."
   [options-summary]
   (s/join
     \newline
