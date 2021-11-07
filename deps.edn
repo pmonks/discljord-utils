@@ -32,8 +32,7 @@
  :aliases
    {; clj -M:check
     :check
-      {:extra-deps {athos/clj-check {:git/url "https://github.com/athos/clj-check.git"
-                                     :git/sha "518d5a1cbfcd7c952f548e6dbfcb9a4a5faf9062"}}
+      {:extra-deps {com.github.athos/clj-check {:git/sha "518d5a1cbfcd7c952f548e6dbfcb9a4a5faf9062"}}
        :main-opts  ["-m" "clj-check.check"]}
 
     ; clj -M:kondo
