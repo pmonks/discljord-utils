@@ -89,7 +89,7 @@
         s))))
 
 (defn to-ascii
-  "Converts the given string to ASCII, mapping a small number of Unicode characters to their ASCII equivalents and stripping the rest."
+  "Converts the given string to ASCII, mapping a small number of Unicode characters (whitespace, hyphens, single & double quotes) to their ASCII equivalents and stripping the rest."
   [s]
   (replace-all s
                [[#"\p{javaWhitespace}" " "]     ; Whitespace
@@ -99,10 +99,10 @@
                 [#"[^\p{ASCII}]+"      ""]]))   ; Strip everything else
 
 (defn truncate
-  "If s is longer than len, truncates it to len-1 and adds the ellipsis (…) character to the end."
+  "If s is longer than len, truncates it to len-1, trims any whitespace on the right, then adds the Unicode ellipsis (…) character to the end."
   [s len]
   (if (> (count s) len)
-    (str (s/trim (subs s 0 (dec len))) "…")
+    (str (s/trimr (subs s 0 (dec len))) "…")
     s))
 
 (defmacro in-tz
