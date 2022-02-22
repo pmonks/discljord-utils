@@ -68,6 +68,12 @@ Optionally, you can also provide:
 
 [Code of Conduct](https://github.com/pmonks/discljord-utils/blob/main/.github/CODE_OF_CONDUCT.md)
 
+### Developer Workflow
+
+This project uses the [git-flow branching strategy](https://nvie.com/posts/a-successful-git-branching-model/), with the caveat that the permanent branches are called `main` and `dev`, and any changes to the `main` branch are considered a release and auto-deployed (JARs to Clojars, API docs to GitHub Pages, etc.).
+
+For this reason, **all development must occur either in branch `dev`, or (preferably) in temporary branches off of `dev`.**  All PRs from forked repos must also be submitted against `dev`; the `main` branch is **only** updated from `dev` via PRs created by the core development team.  All other changes submitted to `main` will be rejected.
+
 ## License
 
 Copyright © 2020 Peter Monks
