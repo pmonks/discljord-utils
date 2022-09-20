@@ -48,12 +48,12 @@ At the REPL:
 
 ### Using the micro-framework
 
-For now your best bet is to look at the [`for-science` bot](https://github.com/pmonks/for-science) as a fully-functional example of how to use the framework.  It's a little cluttered with Heroku specific paraphernalia (none of which is required by the micro-framework), but at a minimum you will need:
+For now your best bet is to look at the [`for-science` bot](https://github.com/pmonks/for-science) as a fully-functional example of how to use the framework.  It's a little cluttered with deployment specific paraphernalia (none of which is required by the micro-framework), but at a minimum you will need:
 
-1. A [namespace containing your bot's responsive commands](https://github.com/pmonks/for-science/blob/main/src/for_science/commands.clj) (note: the intent is to replace this with application/slash commands once a `discljord` release is available that supports them)
+1. A [namespace containing your bot's responsive commands](https://github.com/pmonks/for-science/blob/main/src/for_science/commands.clj) (note: the intent is to replace this with application/slash commands)
 2. A config file for your bot (the [`for-science` config file](https://github.com/pmonks/for-science/blob/main/resources/config.edn) demonstrates the minimal required elements, and you can add whatever bot-specific configuration elements you need to this file as well)
 3. [Logback configuration](https://github.com/pmonks/for-science/blob/main/resources/logback.xml)
-4. To use the `bot.main` namespace as the [entry point for your bot](https://github.com/pmonks/for-science/blob/1b4d73030da1ed8abe4310ad75bf44eb8087fcdd/deps.edn#L28-L30), rather than any of your own namespaces
+4. To use the `bot.main` namespace as the [entry point for your bot](https://github.com/pmonks/for-science/blob/main/deps.edn#L30), rather than any of your own namespaces
 
 Optionally, you can also provide:
 
