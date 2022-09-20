@@ -31,7 +31,7 @@
         (recur (conj series (+' n-1 n-2)))))))
 
 (defn parse-int
-  "Parses a value (a string or numeric) into a Clojure integer (Java Long or BigInteger), returning nil if parsing failed."
+  "Parses a value (a string or numeric) into a Clojure integer (Java Long or BigInteger), returning nil if parsing failed.  Note: redundant in Clojure v1.11+."
   [x]
   (cond (integer?  x) x
         (string?   x) (try

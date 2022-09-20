@@ -27,7 +27,8 @@
             [java-time             :as tm]
             [discljord.events      :as de]
             [discljord-utils.util  :as u]
-            [bot.commands          :as cmd])
+            [bot.commands          :as cmd]
+            [bot.http])     ; Ensure the HTTP server gets started by mount
   (:gen-class))
 
 (def ^:private cli-opts
