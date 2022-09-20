@@ -24,7 +24,7 @@
             [bot.config            :as cfg]
             [discljord-utils.util  :as u]))
 
-(defn http-status-handler
+(defn- http-status-handler
   [_]
   {:status  200
    :headers {"Content-Type" "text/html"}
