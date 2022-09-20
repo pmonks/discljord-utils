@@ -87,11 +87,9 @@
                              :colour                   (if-let [bot-colour (get-in raw-config [:bot :colour])]
                                                          bot-colour
                                                          9215480)
-                             :http-status-port         (if-let [bot-http-status-port (get-in raw-config [:bot :http-status-port])]
-                                                         bot-http-status-port
-                                                         (if-let [bot-http-status-port (u/parse-int (System/getenv "PORT"))]
-                                                           bot-http-status-port
-                                                           8080))
+                             :http-status-port         (if-let [http-status-port (u/parse-int (get-in raw-config [:bot :http-status-port]))]
+                                                         http-status-port
+                                                         8080)
                            }
                          }))
           :stop (async/close!        (:discord-event-channel      config))
