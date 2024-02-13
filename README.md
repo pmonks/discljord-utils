@@ -15,7 +15,7 @@ A little library that extends the [`discljord`](https://github.com/IGJoshua/disc
 
 These can be used independently; use of the utility methods does not require use of the framework, and vice versa.
 
-**NOTE:** This library pre-dates the implementation of application (aka "slash") commands by Discord, and the approach it implements for commands is not longer considered idiomatic.  Consider using application commands instead, perhaps via a library such as [`JohnnyJayJay/slash`](https://github.com/JohnnyJayJay/slash).
+**NOTE: This library pre-dates the implementation of application (aka "slash") commands by Discord, and the approach it implements for commands is no longer considered idiomatic.  Consider using application commands instead, perhaps via a library such as [`JohnnyJayJay/slash`](https://github.com/JohnnyJayJay/slash).**
 
 ## Using the library
 
