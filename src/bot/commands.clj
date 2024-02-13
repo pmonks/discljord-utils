@@ -21,6 +21,7 @@
             [clojure.tools.logging        :as log]
             [java-time                    :as tm]
             [mount.core                   :as mnt :refer [defstate]]
+            [embroidery.api               :as e]
             [discljord-utils.util         :as u]
             [discljord-utils.message-util :as mu]
             [bot.config                   :as cfg]))
@@ -158,7 +159,7 @@
   [_ event-data]
   ; Only respond to messages sent from a human
   (when (mu/human-message? event-data)
-    (future    ; Spin off the actual processing, so we don't clog the Discord event queue
+    (e/future*    ; Spin off the actual processing, so we don't clog the Discord event queue
       (try
         (let [content (s/triml (:content event-data))]
           (if (s/starts-with? content prefix)

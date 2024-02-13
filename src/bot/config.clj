@@ -62,7 +62,7 @@
                        discord-api-token     (validated-config-value raw-config :discord-api-token)
                        discord-event-channel (async/chan (u/getrn raw-config :discord-event-channel-size 100))
                        bot-ns-name           (if-let [bot-ns-name (get-in raw-config [:bot :ns])] bot-ns-name (throw (ex-info "Config key '[:bot :ns]' not provided" {})))
-                       bot-intents           (if-let [intents (get-in raw-config [:bot :intents])] intents #{:guilds :guild-messages :direct-messages})]
+                       bot-intents           (get-in raw-config [:bot :intents] #{:guilds :guild-messages :direct-messages})]
                    (into raw-config
                          {
                            :discord-event-channel      discord-event-channel
