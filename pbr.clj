@@ -22,6 +22,7 @@
   (assoc opts
          :lib          'com.github.pmonks/discljord-utils
          :version      (pbr/calculate-version 1 0)
+         :prod-branch  "release"
          :write-pom    true
          :validate-pom true
          :pom          {:description      "Common utilities on top of the discljord library."
