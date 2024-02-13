@@ -1,7 +1,7 @@
 | | | |
 |---:|:---:|:---:|
-| [**main**](https://github.com/pmonks/discljord-utils/tree/main) | [![CI](https://github.com/pmonks/discljord-utils/workflows/CI/badge.svg?branch=main)](https://github.com/pmonks/discljord-utils/actions?query=workflow%3ACI+branch%3Amain) | [![Dependencies](https://github.com/pmonks/discljord-utils/workflows/dependencies/badge.svg?branch=main)](https://github.com/pmonks/discljord-utils/actions?query=workflow%3Adependencies+branch%3Amain) |
-| [**dev**](https://github.com/pmonks/discljord-utils/tree/dev)  | [![CI](https://github.com/pmonks/discljord-utils/workflows/CI/badge.svg?branch=dev)](https://github.com/pmonks/discljord-utils/actions?query=workflow%3ACI+branch%3dev) | [![Dependencies](https://github.com/pmonks/discljord-utils/workflows/dependencies/badge.svg?branch=dev)](https://github.com/pmonks/discljord-utils/actions?query=workflow%3Adependencies+branch%3Adev) |
+| [**release**](https://github.com/pmonks/discljord-utils/tree/release) | [![CI](https://github.com/pmonks/discljord-utils/actions/workflows/ci.yml/badge.svg?branch=release)](https://github.com/pmonks/discljord-utils/actions?query=workflow%3ACI+branch%3Arelease) | [![Dependencies](https://github.com/pmonks/discljord-utils/actions/workflows/dependencies.yml/badge.svg?branch=release)](https://github.com/pmonks/discljord-utils/actions?query=workflow%3Adependencies+branch%3Arelease) |
+| [**dev**](https://github.com/pmonks/discljord-utils/tree/dev)  | [![CI](https://github.com/pmonks/discljord-utils/actions/workflows/ci.yml/badge.svg?branch=dev)](https://github.com/pmonks/discljord-utils/actions?query=workflow%3ACI+branch%3dev) | [![Dependencies](https://github.com/pmonks/discljord-utils/actions/workflows/dependencies.yml/badge.svg?branch=dev)](https://github.com/pmonks/discljord-utils/actions?query=workflow%3Adependencies+branch%3Adev) |
 
 [![Latest Version](https://img.shields.io/clojars/v/com.github.pmonks/discljord-utils)](https://clojars.org/com.github.pmonks/discljord-utils/) [![Open Issues](https://img.shields.io/github/issues/pmonks/discljord-utils.svg)](https://github.com/pmonks/discljord-utils/issues) [![License](https://img.shields.io/github/license/pmonks/discljord-utils.svg)](https://github.com/pmonks/discljord-utils/blob/main/LICENSE)
 
@@ -14,6 +14,8 @@ A little library that extends the [`discljord`](https://github.com/IGJoshua/disc
 2. A micro-framework that handles startup, configuration, and logging.
 
 These can be used independently; use of the utility methods does not require use of the framework, and vice versa.
+
+**NOTE:** This library pre-dates the implementation of application (aka "slash") commands by Discord, and the approach it implements for commands is not longer considered idiomatic.  Consider using application commands instead, perhaps via a library such as [`JohnnyJayJay/slash`](https://github.com/JohnnyJayJay/slash).
 
 ## Using the library
 
@@ -70,7 +72,7 @@ Optionally, you can also provide:
 
 ### Developer Workflow
 
-This project uses the [git-flow branching strategy](https://nvie.com/posts/a-successful-git-branching-model/), with the caveat that the permanent branches are called `main` and `dev`, and any changes to the `main` branch are considered a release and auto-deployed (JARs to Clojars, API docs to GitHub Pages, etc.).
+This project uses the [git-flow branching strategy](https://nvie.com/posts/a-successful-git-branching-model/), and the permanent branches are called `release` and `dev`, and any changes to the `release` branch are considered a release and auto-deployed (JARs to Clojars, API docs to GitHub Pages, etc.).
 
 For this reason, **all development must occur either in branch `dev`, or (preferably) in temporary branches off of `dev`.**  All PRs from forked repos must also be submitted against `dev`; the `main` branch is **only** updated from `dev` via PRs created by the core development team.  All other changes submitted to `main` will be rejected.
 
