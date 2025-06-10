@@ -24,7 +24,7 @@
   "Generates a default template for embeds."
  []
  {:color     (get-in cfg/config [:bot :colour])
-  :footer    {:text     (get-in cfg/config [:bot :name])
+  :footer    {:text     (str (get-in cfg/config [:bot :name]) (when-not (:production? cfg/config) " ⚠️ DEVELOPMENT INSTANCE! ⚠️"))
               :icon_url (get-in cfg/config [:bot :logo])}
   :timestamp (str (tm/instant))})
 
@@ -46,19 +46,17 @@
                         (:channel-id event-data)
                         :embed (assoc (embed-template)
                                       :fields
-                                        (concat
-                                          (when-not (:production? cfg/config) [{:name "DEVELOPMENT MODE!" :value ""}])
-                                          [{:name "Running for"            :value (str (u/human-readable-date-diff cfg/boot-time now))}
-                                           {:name "Built at"               :value (str (tm/format :iso-instant (:build-date cfg/build-info))
-                                                                                       (when (:repo cfg/build-info)
-                                                                                         (str " from [" (if-let [tag (:tag cfg/build-info)] tag (:sha cfg/build-info)) "](" (:build-url cfg/build-info) ")")))}
-                                           ; Table of fields here
-                                           {:name "Clojure"                :value (str "v" (clojure-version)) :inline true}
-                                           {:name "JVM"                    :value (str (System/getProperty "java.vm.vendor") " v" (System/getProperty "java.vm.version") " (" (System/getProperty "os.name") "/" (System/getProperty "os.arch") ")") :inline true}
-                                           ; Force a newline (Discord is hardcoded to show 3 fields per line), by using Unicode zero width spaces (empty/blank strings won't work!)
-                                           {:name "​"                       :value "​" :inline true}
-                                           {:name "Heap memory in use"     :value (u/human-readable-size (.getUsed (.getHeapMemoryUsage (java.lang.management.ManagementFactory/getMemoryMXBean)))) :inline true}
-                                           {:name "Non-heap memory in use" :value (u/human-readable-size (.getUsed (.getNonHeapMemoryUsage (java.lang.management.ManagementFactory/getMemoryMXBean)))) :inline true}])))))
+                                        [{:name "Running for"            :value (str (u/human-readable-date-diff cfg/boot-time now))}
+                                         {:name "Built at"               :value (str (tm/format :iso-instant (:build-date cfg/build-info))
+                                                                                     (when (:repo cfg/build-info)
+                                                                                       (str " from [" (if-let [tag (:tag cfg/build-info)] tag (:sha cfg/build-info)) "](" (:build-url cfg/build-info) ")")))}
+                                         ; Table of fields here
+                                         {:name "Clojure"                :value (str "v" (clojure-version)) :inline true}
+                                         {:name "JVM"                    :value (str (System/getProperty "java.vm.vendor") " v" (System/getProperty "java.vm.version") " (" (System/getProperty "os.name") "/" (System/getProperty "os.arch") ")") :inline true}
+                                         ; Force a newline (Discord is hardcoded to show 3 fields per line), by using Unicode zero width spaces (empty/blank strings won't work!)
+                                         {:name "​"                       :value "​" :inline true}
+                                         {:name "Heap memory in use"     :value (u/human-readable-size (.getUsed (.getHeapMemoryUsage (java.lang.management.ManagementFactory/getMemoryMXBean)))) :inline true}
+                                         {:name "Non-heap memory in use" :value (u/human-readable-size (.getUsed (.getNonHeapMemoryUsage (java.lang.management.ManagementFactory/getMemoryMXBean)))) :inline true}]))))
 
 (defn gc-command!
   "Requests that the bot's JVM perform a GC cycle."
