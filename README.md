@@ -1,12 +1,11 @@
-| | | |
-|---:|:---:|:---:|
-| [**release**](https://github.com/pmonks/discljord-utils/tree/release) | [![CI](https://github.com/pmonks/discljord-utils/actions/workflows/ci.yml/badge.svg?branch=release)](https://github.com/pmonks/discljord-utils/actions?query=workflow%3ACI+branch%3Arelease) | [![Dependencies](https://github.com/pmonks/discljord-utils/actions/workflows/dependencies.yml/badge.svg?branch=release)](https://github.com/pmonks/discljord-utils/actions?query=workflow%3Adependencies+branch%3Arelease) |
-| [**dev**](https://github.com/pmonks/discljord-utils/tree/dev)  | [![CI](https://github.com/pmonks/discljord-utils/actions/workflows/ci.yml/badge.svg?branch=dev)](https://github.com/pmonks/discljord-utils/actions?query=workflow%3ACI+branch%3dev) | [![Dependencies](https://github.com/pmonks/discljord-utils/actions/workflows/dependencies.yml/badge.svg?branch=dev)](https://github.com/pmonks/discljord-utils/actions?query=workflow%3Adependencies+branch%3Adev) |
+# discljord-utils
 
+[![CI](https://github.com/pmonks/discljord-utils/actions/workflows/ci.yml/badge.svg?branch=dev)](https://github.com/pmonks/discljord-utils/actions?query=workflow%3ACI+branch%3dev) [![Dependencies](https://github.com/pmonks/discljord-utils/actions/workflows/dependencies.yml/badge.svg?branch=dev)](https://github.com/pmonks/discljord-utils/actions?query=workflow%3Adependencies+branch%3Adev) |
+<br/>
 [![Latest Version](https://img.shields.io/clojars/v/com.github.pmonks/discljord-utils)](https://clojars.org/com.github.pmonks/discljord-utils/) [![Open Issues](https://img.shields.io/github/issues/pmonks/discljord-utils.svg)](https://github.com/pmonks/discljord-utils/issues) [![License](https://img.shields.io/github/license/pmonks/discljord-utils.svg)](https://github.com/pmonks/discljord-utils/blob/release/LICENSE)
 
-
-# discljord-utils
+> [!WARNING]
+> This library pre-dates the implementation of application (aka "slash") commands by Discord, and the approach it implements for commands is no longer considered idiomatic.  Consider using application commands instead, perhaps via a library such as [`JohnnyJayJay/slash`](https://github.com/JohnnyJayJay/slash).
 
 A little library that extends the [`discljord`](https://github.com/IGJoshua/discljord) Clojure client library for [Discord](https://discord.com/), with:
 
@@ -14,8 +13,6 @@ A little library that extends the [`discljord`](https://github.com/IGJoshua/disc
 2. A micro-framework that handles startup, configuration, and logging.
 
 These can be used independently; use of the utility methods does not require use of the framework, and vice versa.
-
-**NOTE: This library pre-dates the implementation of application (aka "slash") commands by Discord, and the approach it implements for commands is no longer considered idiomatic.  Consider using application commands instead, perhaps via a library such as [`JohnnyJayJay/slash`](https://github.com/JohnnyJayJay/slash).**
 
 ## Using the library
 
@@ -59,7 +56,7 @@ For now your best bet is to look at the [`for-science` bot](https://github.com/p
 
 Optionally, you can also provide:
 
-1. A [build info file](https://github.com/pmonks/for-science/blob/release/resources/build-info.edn), which (if present) will be used by the framework to report the precise version of the code it is running with. You can see an example of generating this file automatically [here](https://github.com/pmonks/for-science/blob/1b4d73030da1ed8abe4310ad75bf44eb8087fcdd/bin/release.sh#L50-L58).
+1. A [build info file](https://github.com/pmonks/for-science/blob/release/resources/build-info.edn), which (if present) will be used by the framework to report the precise version of the code it is running with. You can see one of many possible methods for generating this file automatically [here](https://github.com/pmonks/for-science/blob/1b4d73030da1ed8abe4310ad75bf44eb8087fcdd/bin/release.sh#L50-L58).
 2. A [privacy policy](https://github.com/pmonks/for-science/blob/release/PRIVACY.md), which the bot will link to when a user issues the `!privacy` command
 
 ## Contributor Information
@@ -80,6 +77,6 @@ For this reason, **all development must occur either in branch `dev`, or (prefer
 
 Copyright © 2020 Peter Monks
 
-Distributed under the [Apache License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0).
+Distributed under the [Mozilla Public License, version 2.0](https://www.mozilla.org/en-US/MPL/2.0/).
 
-SPDX-License-Identifier: [Apache-2.0](https://spdx.org/licenses/Apache-2.0)
+SPDX-License-Identifier: [`MPL-2.0`](https://spdx.org/licenses/MPL-2.0)
