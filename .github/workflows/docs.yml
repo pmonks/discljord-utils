@@ -13,8 +13,8 @@ jobs:
       - uses: actions/setup-java@v4
         with:
           distribution: 'temurin'
-          java-version: 21
-      - uses: DeLaGuardo/setup-clojure@12.5
+          java-version: 24
+      - uses: DeLaGuardo/setup-clojure@13.4
         with:
           cli: latest
       - uses: actions/cache@v4
@@ -30,7 +30,7 @@ jobs:
         run: clojure -Srepro -J-Dclojure.main.report=stderr -T:build docs
 
       - name: Deploy docs
-        uses: peaceiris/actions-gh-pages@v3
+        uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./target/doc
