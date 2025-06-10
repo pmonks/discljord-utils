@@ -19,7 +19,7 @@
          :validate-pom true
          :pom          {:description      "Common utilities on top of the discljord library."
                         :url              "https://github.com/pmonks/discljord-utils"
-                        :licenses         [:license   {:name "Apache-2.0" :url "http://www.apache.org/licenses/LICENSE-2.0.html"}]
+                        :licenses         [:license   {:name "MPL-2.0" :url "https://www.mozilla.org/en-US/MPL/2.0/"}]
                         :developers       [:developer {:id "pmonks" :name "Peter Monks" :email "pmonks+discljord-utils@gmail.com"}]
                         :scm              {:url "https://github.com/pmonks/discljord-utils" :connection "scm:git:git://github.com/pmonks/discljord-utils.git" :developer-connection "scm:git:ssh://git@github.com/pmonks/discljord-utils.git"}
                         :issue-management {:system "github" :url "https://github.com/pmonks/discljord-utils/issues"}}))
