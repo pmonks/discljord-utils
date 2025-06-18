@@ -1,8 +1,12 @@
 # discljord-utils
 
-[![CI](https://github.com/pmonks/discljord-utils/actions/workflows/ci.yml/badge.svg?branch=dev)](https://github.com/pmonks/discljord-utils/actions?query=workflow%3ACI+branch%3dev) [![Dependencies](https://github.com/pmonks/discljord-utils/actions/workflows/dependencies.yml/badge.svg?branch=dev)](https://github.com/pmonks/discljord-utils/actions?query=workflow%3Adependencies+branch%3Adev)
+[![CI](https://github.com/pmonks/discljord-utils/actions/workflows/ci.yml/badge.svg?branch=dev)](https://github.com/pmonks/discljord-utils/actions?query=workflow%3ACI+branch%3dev)
+[![Dependencies](https://github.com/pmonks/discljord-utils/actions/workflows/dependencies.yml/badge.svg?branch=dev)](https://github.com/pmonks/discljord-utils/actions?query=workflow%3Adependencies+branch%3Adev)
 <br/>
-[![Latest Version](https://img.shields.io/clojars/v/com.github.pmonks/discljord-utils)](https://clojars.org/com.github.pmonks/discljord-utils/) [![Open Issues](https://img.shields.io/github/issues/pmonks/discljord-utils.svg)](https://github.com/pmonks/discljord-utils/issues) [![License](https://img.shields.io/github/license/pmonks/discljord-utils.svg)](https://github.com/pmonks/discljord-utils/blob/release/LICENSE)
+[![Latest Version](https://img.shields.io/clojars/v/com.github.pmonks/discljord-utils)](https://clojars.org/com.github.pmonks/discljord-utils/)
+[![Open Issues](https://img.shields.io/github/issues/pmonks/discljord-utils.svg)](https://github.com/pmonks/discljord-utils/issues)
+[![License](https://img.shields.io/github/license/pmonks/discljord-utils.svg)](https://github.com/pmonks/discljord-utils/blob/release/LICENSE)
+![Maintained](https://badges.ws/badge/?label=maintained&value=yes,+at+author's+discretion)
 
 > [!WARNING]
 > This library pre-dates the implementation of application (aka "slash") commands by Discord, and the approach it implements for commands is no longer considered idiomatic.  Consider using application commands instead, perhaps via a library such as [`JohnnyJayJay/slash`](https://github.com/JohnnyJayJay/slash).
