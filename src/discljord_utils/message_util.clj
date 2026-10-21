@@ -172,3 +172,26 @@
                                                       ["~" "\\~"]
                                                       ["|" "\\|"]]))]
       (u/replace-all s replacements))))
+
+(defn bulk-overwrite-global-application-commands!
+  "A version of discljord.message/bulk-overwrite-global-application-commands! that throws errors."
+  [discord-message-channel application-id application-commands]
+  (check-response-and-throw @(dm/bulk-overwrite-global-application-commands! discord-message-channel
+                                                                             application-id
+                                                                             application-commands)))
+
+(defn edit-original-interaction-response!
+  "A version of discljord.message/edit-original-interaction-response! that throws errors."
+  [discord-message-channel application-id interaction-token & args]
+  (check-response-and-throw @(apply dm/edit-original-interaction-response! discord-message-channel
+                                    application-id
+                                    interaction-token
+                                    args)))
+
+(defn create-followup-message!
+  "A version of discljord.message/create-followup-message! that throws errors."
+  [discord-message-channel application-id interaction-token & args]
+  (check-response-and-throw @(apply dm/create-followup-message! discord-message-channel
+                                    application-id
+                                    interaction-token
+                                    args)))
