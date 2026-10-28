@@ -21,30 +21,32 @@
             [bot.config                   :as cfg]
             [bot.commands                 :as cmd]))
 
-(defn- bot-ns-var-value
+(defn- slash-ns-var-value
   [var-name]
-  (when-let [v (ns-resolve (get-in cfg/config [:bot :ns-sym]) var-name)]
+  (when-let [v (ns-resolve (get-in cfg/config [:bot :slash-ns-sym]) var-name)]
     (deref v)))
 
 (declare slash-command-handlers)
 (defstate slash-command-handlers
-  :start (do
-           (require (get-in cfg/config [:bot :ns-sym]))
-           (let [definitions (bot-ns-var-value 'slash-commands)
-                 paths       (bot-ns-var-value 'slash-command-paths)]
+  :start (when-let [slash-ns-sym (get-in cfg/config [:bot :slash-ns-sym])]
+           (require slash-ns-sym)
+           (let [definitions (slash-ns-var-value 'slash-commands)
+                 paths       (slash-ns-var-value 'slash-command-paths)]
              (when (and (seq definitions) paths)
-               (let [application-id (cfg/validated-config-value cfg/config :discord-application-id)
-                     registered     (mu/bulk-overwrite-global-application-commands! (:discord-message-channel cfg/config)
-                                                                                    application-id
-                                                                                    definitions)]
-                 (log/info "Registered" (count registered) "slash command(s):" (pr-str (map :name registered)))
-                 (assoc gtw/gateway-defaults :application-command paths))))))
+               (if (:reload-command-definitions? cfg/config)
+                 (let [application-id (cfg/validated-config-value cfg/config :discord-application-id)
+                       registered     (mu/bulk-overwrite-global-application-commands! (:discord-message-channel cfg/config)
+                                                                                      application-id
+                                                                                      definitions)]
+                   (log/info "Overwrote" (count registered) "slash command(s):" (pr-str (map :name registered))))
+                 (log/info "Skipped overwriting of slash commands"))
+               (assoc gtw/gateway-defaults :application-command paths)))))
 
 (defmethod cmd/handle-discord-event :interaction-create
   [_ event-data]
   (when slash-command-handlers
-    (e/future*  
-      (try
-        (slash/route-interaction slash-command-handlers event-data)
-        (catch Exception e
-          (u/log-exception e))))))
+    (e/future*
+     (try
+       (slash/route-interaction slash-command-handlers event-data)
+       (catch Exception e
+         (u/log-exception e))))))

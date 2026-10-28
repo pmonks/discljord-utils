@@ -44,7 +44,7 @@
   (let [result (get m k)]
     (if-not (s/blank? result)
       result
-      (throw (ex-info (str "Config key '"(name k)"' not provided") {})))))
+      (throw (ex-info (str "Config key '" (name k) "' not provided") {})))))
 
 (defn- parse-boolean-string
   "Parses string `s` into a boolean, with `\"true\"` (all cases variations and
@@ -52,64 +52,66 @@
   and all other values (including `nil`) being `false`."
   [^String s]
   (boolean
-    (when-not (s/blank? s) (parse-boolean (s/lower-case(s/trim s))))))
+   (when-not (s/blank? s) (parse-boolean (s/lower-case (s/trim s))))))
 
 (declare  config)
 (defstate config
-          :start (let [raw-config            (if-let [config-file (:config-file (mnt/args))]
-                                               (a/read-config config-file)
-                                               (a/read-config (io/resource "config.edn")))
-                       discord-api-token     (validated-config-value raw-config :discord-api-token)
-                       discord-event-channel (async/chan (u/getrn raw-config :discord-event-channel-size 100))
-                       bot-ns-name           (if-let [bot-ns-name (get-in raw-config [:bot :ns])] bot-ns-name (throw (ex-info "Config key '[:bot :ns]' not provided" {})))
-                       bot-intents           (get-in raw-config [:bot :intents] #{:guilds :guild-messages :direct-messages})]
-                   (into raw-config
-                         {
-                           :production?                (parse-boolean-string (:production-mode raw-config))
-                           :discord-event-channel      discord-event-channel
-                           :discord-connection-channel (if-let [connection (dc/connect-bot! discord-api-token
-                                                                                            discord-event-channel
-                                                                                            :intents bot-intents)]
-                                                         connection
-                                                         (throw (ex-info "Failed to connect bot to Discord" {})))
-                           :discord-message-channel    (if-let [connection (dm/start-connection! discord-api-token)]
-                                                         connection
-                                                         (throw (ex-info "Failed to connect to Discord message channel" {})))
-                           :bot {
-                             :ns                       bot-ns-name
-                             :ns-sym                   (symbol bot-ns-name)
-                             :intents                  bot-intents
-                             :name                     (if-let [bot-name (get-in raw-config [:bot :name])]
-                                                         bot-name
-                                                         (first (s/split bot-ns-name #"\.+")))
-                             :logo                     (if-let [bot-logo (get-in raw-config [:bot :logo])]
-                                                         bot-logo
-                                                         "https://cdn.jsdelivr.net/gh/IGJoshua/discljord/img/icon.png")
-                             :colour                   (if-let [bot-colour (get-in raw-config [:bot :colour])]
-                                                         bot-colour
-                                                         9215480)
-                             :http-status-port         (if-let [http-status-port (u/parse-int (get-in raw-config [:bot :http-status-port]))]
-                                                         http-status-port
-                                                         8080)
-                           }
-                         }))
-          :stop (async/close!        (:discord-event-channel      config))
-                (dc/disconnect-bot!  (:discord-connection-channel config))
-                (dm/stop-connection! (:discord-message-channel    config)))
+  :start (let [raw-config            (if-let [config-file (:config-file (mnt/args))]
+                                       (a/read-config config-file)
+                                       (a/read-config (io/resource "config.edn")))
+               discord-api-token     (validated-config-value raw-config :discord-api-token)
+               discord-event-channel (async/chan (u/getrn raw-config :discord-event-channel-size 100))
+               bot-ns-name           (get-in raw-config [:bot :ns])
+               slash-ns-name         (or (get-in raw-config [:bot :slash-ns]) bot-ns-name)
+               _                     (when-not (or bot-ns-name slash-ns-name)
+                                       (throw (ex-info "At least one of config keys '[:bot :ns]' and '[:bot :slash-ns]' must be provided" {})))
+               bot-intents           (get-in raw-config [:bot :intents] #{:guilds :guild-messages :direct-messages})]
+           (into raw-config
+                 {:production?                  (parse-boolean-string (:production-mode raw-config))
+                  :reload-command-definitions?  (parse-boolean-string (:reload-command-definitions raw-config))
+                  :discord-event-channel      discord-event-channel
+                  :discord-connection-channel (if-let [connection (dc/connect-bot! discord-api-token
+                                                                                   discord-event-channel
+                                                                                   :intents bot-intents)]
+                                                connection
+                                                (throw (ex-info "Failed to connect bot to Discord" {})))
+                  :discord-message-channel    (if-let [connection (dm/start-connection! discord-api-token)]
+                                                connection
+                                                (throw (ex-info "Failed to connect to Discord message channel" {})))
+                  :bot {:ns                       bot-ns-name
+                        :ns-sym                   (when bot-ns-name (symbol bot-ns-name))
+                        :slash-ns                 slash-ns-name
+                        :slash-ns-sym             (when slash-ns-name (symbol slash-ns-name))
+                        :intents                  bot-intents
+                        :name                     (if-let [bot-name (get-in raw-config [:bot :name])]
+                                                    bot-name
+                                                    (first (s/split (or bot-ns-name slash-ns-name) #"\.+")))
+                        :logo                     (if-let [bot-logo (get-in raw-config [:bot :logo])]
+                                                    bot-logo
+                                                    "https://cdn.jsdelivr.net/gh/IGJoshua/discljord/img/icon.png")
+                        :colour                   (if-let [bot-colour (get-in raw-config [:bot :colour])]
+                                                    bot-colour
+                                                    9215480)
+                        :http-status-port         (if-let [http-status-port (u/parse-int (get-in raw-config [:bot :http-status-port]))]
+                                                    http-status-port
+                                                    8080)}}))
+  :stop (async/close!        (:discord-event-channel      config))
+  (dc/disconnect-bot!  (:discord-connection-channel config))
+  (dm/stop-connection! (:discord-message-channel    config)))
 
 (declare  build-info)
 (defstate build-info
-          :start (when-let [build-info-resource (io/resource "build-info.edn")]
-                   (when-let [raw-build-info (edn/read-string (slurp build-info-resource))]
-                     (let [repo (s/replace (s/trim (get raw-build-info :repo "")) ".git" "")
-                           sha  (s/trim (get raw-build-info :sha  ""))
-                           tag  (s/trim (get raw-build-info :tag  ""))
-                           date (:date raw-build-info)]
-                       (merge (when-not (s/blank? repo) {:repo repo})
-                              (when-not (s/blank? sha)  {:sha  sha})
-                              (when-not (s/blank? tag)  {:tag  tag})
-                              (when (and (not (s/blank? repo)) (or (not (s/blank? tag)) (not (s/blank? sha)))) {:build-url (str repo "/tree/" (if (s/blank? tag) sha tag))})
-                              (when date {:build-date (tm/instant date)}))))))
+  :start (when-let [build-info-resource (io/resource "build-info.edn")]
+           (when-let [raw-build-info (edn/read-string (slurp build-info-resource))]
+             (let [repo (s/replace (s/trim (get raw-build-info :repo "")) ".git" "")
+                   sha  (s/trim (get raw-build-info :sha  ""))
+                   tag  (s/trim (get raw-build-info :tag  ""))
+                   date (:date raw-build-info)]
+               (merge (when-not (s/blank? repo) {:repo repo})
+                      (when-not (s/blank? sha)  {:sha  sha})
+                      (when-not (s/blank? tag)  {:tag  tag})
+                      (when (and (not (s/blank? repo)) (or (not (s/blank? tag)) (not (s/blank? sha)))) {:build-url (str repo "/tree/" (if (s/blank? tag) sha tag))})
+                      (when date {:build-date (tm/instant date)}))))))
 
 (defn set-log-level!
   "Sets the log level (which can be a string or a keyword) of the bot, for the given logger aka 'package' (a String, use 'ROOT' for the root logger)."
