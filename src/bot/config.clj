@@ -51,8 +51,8 @@
   with leading and/or trailing whitespace stripped) being converted to `true`
   and all other values (including `nil`) being `false`."
   [^String s]
-  (boolean
-   (when-not (s/blank? s) (parse-boolean (s/lower-case (s/trim s))))))
+  (boolean 
+    (when-not (s/blank? s) (parse-boolean (s/lower-case (s/trim s))))))
 
 (declare  config)
 (defstate config

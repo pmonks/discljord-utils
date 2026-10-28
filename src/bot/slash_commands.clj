@@ -46,7 +46,7 @@
   [_ event-data]
   (when slash-command-handlers
     (e/future*
-     (try
-       (slash/route-interaction slash-command-handlers event-data)
-       (catch Exception e
-         (u/log-exception e))))))
+      (try
+        (slash/route-interaction slash-command-handlers event-data)
+        (catch Exception e
+          (u/log-exception e))))))
