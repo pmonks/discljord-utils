@@ -20,7 +20,8 @@
             [discljord.events      :as de]
             [discljord-utils.util  :as u]
             [bot.commands          :as cmd]
-            [bot.http])     ; Ensure the HTTP server gets started by mount
+            [bot.http] ; Ensure the HTTP server gets started by mount
+            [bot.slash-commands]) 
   (:gen-class))
 
 (def ^:private cli-opts
